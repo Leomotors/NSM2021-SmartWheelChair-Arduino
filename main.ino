@@ -1,4 +1,4 @@
-#include "utils/maker_board_properties.h"
+#include "utils/maker_board_properties.hpp"
 #include "components/LED.cpp"
 
 LED A(4);

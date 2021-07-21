@@ -2,8 +2,9 @@
 
 Arduino Code for Smart Wheel Chair (NSM 2021)
 
-## ⚙️ Components needed and Connection
+## ⚙️ Components used and Connection
 
+* Maker Nano
 * Maker Drive
 
 *to add more; under development*

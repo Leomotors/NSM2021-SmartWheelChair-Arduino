@@ -5,7 +5,7 @@ class LED
     uint8_t LED_PIN;
 
 public:
-    LED(int PIN) : LED_PIN(PIN)
+    LED(uint8_t PIN) : LED_PIN(PIN)
     {
         pinMode(LED_PIN, OUTPUT);
     }

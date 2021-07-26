@@ -1,12 +1,9 @@
 // ---------------------------------------------------------------- //
 // Arduino Ultrasoninc Sensor HC-SR04
-// Re-writed by Arbi Abdul Jabbaar
-// Using Arduino IDE 1.8.7
-// Using HC-SR04 Module
-// Tested on 17 September 2019
+// Original Algorithm by Arbi Abdul Jabbaar
+// Original Algorithm tested on 17 September 2019
+// Original Algorithm Source: https://create.arduino.cc/projecthub/abdularbi17/ultrasonic-sensor-hc-sr04-with-arduino-tutorial-327ff6
 // ---------------------------------------------------------------- //
-
-// * https://create.arduino.cc/projecthub/abdularbi17/ultrasonic-sensor-hc-sr04-with-arduino-tutorial-327ff6
 
 #include <stdint.h>
 

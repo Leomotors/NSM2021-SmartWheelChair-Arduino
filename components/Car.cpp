@@ -17,7 +17,7 @@ public:
 
     void setSpeed(MyPair speed)
     {
-        Left->setSpeed(speed.first + speed.second);
-        Right->setSpeed(speed.first - speed.second);
+        Left->setSpeed(speed.first + speed.second / 2);
+        Right->setSpeed(speed.first - speed.second / 2);
     }
 };

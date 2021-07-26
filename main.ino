@@ -1,22 +1,37 @@
+#include <CytronMotorDriver.h>
+
 #include "utils/maker_board_properties.h"
 #include "components/LED.cpp"
 #include "components/Buzzer.cpp"
 #include "components/Ultrasonic.cpp"
+#include "components/Joystick.cpp"
 
-Ultrasonic U0{A0, A1};
+/**
+ * * COMPONENTS ARE
+ * * - 2 Ultrasonic (Use 2 Digital Pin Each)
+ * * - Bluetooth Module (RX TX Pin)
+ * * - Analog Joystick (2 Analog In PIN, 1 Digital In)
+ * * - Relay (1 Digital Out)
+ * * - Push Button (1 Digital In)
+ * * - Motor Driver (4 Digital PWM)
+ */
+
+Ultrasonic FrontGround{A2, A3};
+Ultrasonic FrontView{A4,A5};
+Joystick J{A0,A1, 13};
+CytronMD LeftMotor{PWM_PWM, 5, 6};
+CytronMD RightMotor{PWM_PWM, 9, 10};
 
 void setup()
 {
     Serial.begin(9600);
     MakerNanoInit();
     Buzzer::init();
+    pinMode(10, OUTPUT);
+    digitalWrite(10, HIGH);
 }
 
 void loop()
 {
-    // * TEST
-    // * If distance is less than 5 cm, play Giorno's Theme
-    // * Limitation: Ultrasonic and Buzzer can't be at the same time.
-    if (U0.getDist() < 5)
-        Music::playGiorno();
+    J.printInput();
 }

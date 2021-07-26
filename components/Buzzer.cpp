@@ -60,7 +60,7 @@ namespace Music
         p(NOTE_D5, 350, 0);
         p(NOTE_E5, 250, 0);
         p(NOTE_F5S, 650, 0);
-        p(NOTE_B5, 650, 67);
+        p(NOTE_B5, 650, 0);
         p(NOTE_B5, 150, 0);
         p(NOTE_C6S, 200, 0);
         p(NOTE_D6, 300, 0);

@@ -1,5 +1,7 @@
 #include <stdint.h>
 
+#include "../utils/Pair.hpp"
+
 #define BOARD_BUZZER_PIN 8
 
 namespace Buzzer
@@ -20,6 +22,13 @@ namespace Buzzer
     }
 }
 
+namespace Signal
+{
+    void SwitchedOn()
+    {
+        Buzzer::Play(2000, 1000);
+    }
+}
 #define NOTE_C5 523
 #define NOTE_C5S 554
 #define NOTE_D5 587

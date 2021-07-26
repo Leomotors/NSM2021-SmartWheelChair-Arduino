@@ -20,10 +20,13 @@
 
 #define RELAY_PIN 2
 
+void powerOff();
+
 Ultrasonic FrontGround{A2, A3};
 Ultrasonic FrontView{A4, A5};
-Joystick CtrlJoy{A1, A0, 13};
+Joystick CtrlJoy{A1, A0, 13, powerOff};
 Car MyCar{5, 6, 9, 10};
+
 
 void setup()
 {
@@ -37,6 +40,12 @@ void setup()
 // * Main Driving Loop
 void loop()
 {
+    CtrlJoy.PowerOffCheck();
     MyPair JoyData = CtrlJoy.getData();
     MyCar.setSpeed(JoyData);
+}
+
+void powerOff()
+{
+    digitalWrite(RELAY_PIN, LOW);
 }

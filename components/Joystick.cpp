@@ -40,6 +40,12 @@ public:
         return MyPair{Xval, Yval};
     }
 
+    bool isNeutral()
+    {
+        MyPair data = getData();
+        return data.first == 0 && data.second == 0;
+    }
+
 private:
     // * Get Data from Joystick and save to class private variable
     void calcJoystickPositionAndSaveToClassAttribute()

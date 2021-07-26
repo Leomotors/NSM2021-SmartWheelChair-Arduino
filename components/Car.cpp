@@ -20,4 +20,11 @@ public:
         Left->setSpeed(speed.first + speed.second / 2);
         Right->setSpeed(speed.first - speed.second / 2);
     }
+
+    void emergencyBrake(void BeeperFunc())
+    {
+        Left->setSpeed(0);
+        Right->setSpeed(0);
+        BeeperFunc();
+    }
 };

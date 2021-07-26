@@ -28,7 +28,16 @@ namespace Signal
     {
         Buzzer::Play(2000, 1000);
     }
+    void Alert()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            Buzzer::Play(2000, 500);
+            delay(550);
+        }
+    }
 }
+
 #define NOTE_C5 523
 #define NOTE_C5S 554
 #define NOTE_D5 587

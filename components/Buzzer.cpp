@@ -28,6 +28,7 @@ namespace Signal
     {
         Buzzer::Play(2000, 1000);
     }
+    
     void Alert()
     {
         for (int i = 0; i < 3; i++)

@@ -33,7 +33,15 @@ void setup()
     digitalWrite(RELAY_PIN, HIGH);
     Serial.begin(9600);
     Buzzer::init();
+
+    // * Switch on Beep
     Signal::SwitchedOn();
+
+    // TODO Implement authentication process
+    delay(1200);
+
+    // * When Authentication success, play welcome music and begin the system
+    Music::playGiorno();
 }
 
 // * Main Driving Loop

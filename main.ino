@@ -20,9 +20,11 @@
 
 #define RELAY_PIN 2
 
+void powerOff();
+
 Ultrasonic FrontGround{A2, A3};
 Ultrasonic FrontView{A4, A5};
-Joystick CtrlJoy{A1, A0, 13};
+Joystick MyJoy{A1, A0, 13, powerOff};
 Car MyCar{5, 6, 9, 10};
 
 void setup()
@@ -31,12 +33,38 @@ void setup()
     digitalWrite(RELAY_PIN, HIGH);
     Serial.begin(9600);
     Buzzer::init();
+
+    // * Switch on Beep
     Signal::SwitchedOn();
+
+    // TODO Implement authentication process
+    delay(1200);
+
+    // * When Authentication success, play welcome music and begin the system
+    Music::playGiorno();
 }
 
 // * Main Driving Loop
 void loop()
 {
-    MyPair JoyData = CtrlJoy.getData();
-    MyCar.setSpeed(JoyData);
+    MyPair JoyData = MyJoy.getData(true);
+    MyJoy.PowerOffCheck();
+
+    if (MyJoy.isForward() && (FrontGround.getDist() > 5 || FrontView.getDist() <= 10))
+    {
+        MyCar.emergencyBrake(Signal::Alert);
+    }
+    else
+        MyCar.setSpeed(JoyData);
+}
+
+void powerOff()
+{
+    if (!MyJoy.isNeutral())
+    {
+        MyCar.emergencyBrake(Signal::Alert);
+    }
+
+    while (true)
+        digitalWrite(RELAY_PIN, LOW);
 }

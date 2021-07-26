@@ -7,6 +7,8 @@
 
 #include <stdint.h>
 
+#define ULTRASONIC_TIME_LIMIT 5000
+
 class Ultrasonic
 {
     long duration;
@@ -30,10 +32,12 @@ public:
         delayMicroseconds(10);
         digitalWrite(trigPin, LOW);
         // Reads the echoPin, returns the sound wave travel time in microseconds
-        duration = pulseIn(echoPin, HIGH);
+        duration = pulseIn(echoPin, HIGH, ULTRASONIC_TIME_LIMIT);
+        duration = duration ? duration : ULTRASONIC_TIME_LIMIT;
         // Calculating the distance
         distance = duration * 0.034 / 2; // Speed of sound wave divided by 2 (go and back)
         // Displays the distance on the Serial Monitor
+        //Serial.println(distance);
         return distance;
     }
 };

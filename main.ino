@@ -27,7 +27,6 @@ Ultrasonic FrontView{A4, A5};
 Joystick MyJoy{A1, A0, 13, powerOff};
 Car MyCar{5, 6, 9, 10};
 
-
 void setup()
 {
     pinMode(RELAY_PIN, OUTPUT);
@@ -43,17 +42,17 @@ void loop()
     MyPair JoyData = MyJoy.getData(true);
     MyJoy.PowerOffCheck();
 
-    if(MyJoy.isForward() && (FrontGround.getDist() > 5 || FrontView.getDist() < 5))
+    if (MyJoy.isForward() && (FrontGround.getDist() > 5 || FrontView.getDist() <= 10))
     {
         MyCar.emergencyBrake(Signal::Alert);
     }
-
-    MyCar.setSpeed(JoyData);
+    else
+        MyCar.setSpeed(JoyData);
 }
 
 void powerOff()
 {
-    if(!MyJoy.isNeutral())
+    if (!MyJoy.isNeutral())
     {
         MyCar.emergencyBrake(Signal::Alert);
     }

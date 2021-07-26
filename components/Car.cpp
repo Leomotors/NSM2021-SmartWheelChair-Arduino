@@ -17,8 +17,16 @@ public:
 
     void setSpeed(MyPair speed)
     {
-        Left->setSpeed(speed.first + speed.second / 2);
-        Right->setSpeed(speed.first - speed.second / 2);
+        if (speed.first >= 0)
+        {
+            Left->setSpeed(speed.first + speed.second / 2);
+            Right->setSpeed(speed.first - speed.second / 2);
+        }
+        else
+        {
+            Left->setSpeed(speed.first - speed.second / 2);
+            Right->setSpeed(speed.first + speed.second / 2);
+        }
     }
 
     void emergencyBrake(void BeeperFunc())

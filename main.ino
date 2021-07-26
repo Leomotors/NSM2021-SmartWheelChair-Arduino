@@ -6,6 +6,8 @@
 #include "components/Joystick.cpp"
 #include "components/Car.cpp"
 
+#include "utils/Pair.hpp"
+
 /**
  * * COMPONENTS ARE
  * * - 2 Ultrasonic (Use 2 Digital Pin Each)
@@ -32,7 +34,9 @@ void setup()
     Signal::SwitchedOn();
 }
 
+// * Main Driving Loop
 void loop()
 {
-    MyCar.setSpeed(CtrlJoy.getData());
+    MyPair JoyData = CtrlJoy.getData();
+    MyCar.setSpeed(JoyData);
 }

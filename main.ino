@@ -57,5 +57,6 @@ void powerOff()
         MyCar.emergencyBrake(Signal::Alert);
     }
 
-    digitalWrite(RELAY_PIN, LOW);
+    while (true)
+        digitalWrite(RELAY_PIN, LOW);
 }

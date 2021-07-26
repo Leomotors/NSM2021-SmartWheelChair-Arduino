@@ -32,8 +32,8 @@ namespace Signal
     {
         for (int i = 0; i < 3; i++)
         {
-            Buzzer::Play(2000, 500);
-            delay(550);
+            Buzzer::Play(2000, 200);
+            delay(240);
         }
     }
 }

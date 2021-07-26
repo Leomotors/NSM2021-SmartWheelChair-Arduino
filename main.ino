@@ -40,9 +40,14 @@ void setup()
 // * Main Driving Loop
 void loop()
 {
-    MyPair JoyData = MyJoy.getData();
+    MyPair JoyData = MyJoy.getData(true);
     MyJoy.PowerOffCheck();
-    
+
+    if(MyJoy.isForward() && (FrontGround.getDist() > 5 || FrontView.getDist() < 5))
+    {
+        MyCar.emergencyBrake(Signal::Alert);
+    }
+
     MyCar.setSpeed(JoyData);
 }
 
@@ -52,6 +57,6 @@ void powerOff()
     {
         MyCar.emergencyBrake(Signal::Alert);
     }
-    
+
     digitalWrite(RELAY_PIN, LOW);
 }

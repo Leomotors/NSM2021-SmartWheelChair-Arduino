@@ -8,6 +8,7 @@ class Joystick
 {
     uint8_t VRx_PIN, VRy_PIN, SW_PIN;
     int Xval, Yval;
+    MyPair dataPair{0, 0};
     void (*powerOffFunc)();
     int powerOffTimer{0};
 
@@ -34,9 +35,10 @@ public:
         }
     }
 
-    MyPair getData()
+    MyPair getData(bool generateNewData = false)
     {
-        calcJoystickPositionAndSaveToClassAttribute();
+        if (generateNewData)
+            calcJoystickPositionAndSaveToClassAttribute();
         return MyPair{Xval, Yval};
     }
 
@@ -44,6 +46,11 @@ public:
     {
         MyPair data = getData();
         return data.first == 0 && data.second == 0;
+    }
+
+    bool isForward()
+    {
+        return getData().first > 0;
     }
 
 private:
@@ -56,5 +63,7 @@ private:
         Yval = analogRead(VRy_PIN);
         Yval = map(Yval, 0, 1023, -255, 255);
         Yval = (abs(Yval) > INACCURACY_RANGE) ? Yval : 0;
+        dataPair.first = Xval;
+        dataPair.second = Yval;
     }
 };

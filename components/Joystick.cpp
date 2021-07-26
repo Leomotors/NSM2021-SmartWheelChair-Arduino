@@ -16,6 +16,13 @@ public:
         pinMode(SW_PIN, INPUT);
     }
 
+    MyPair getData()
+    {
+        eval();
+        return MyPair{Xval, Yval};
+    }
+
+private:
     // * Get Data from Joystick and save to class private variable
     void eval()
     {
@@ -26,10 +33,5 @@ public:
         Yval = map(Yval, 0, 1023, -255, 255);
         Yval = (abs(Yval) > INACCURACY_RANGE) ? Yval : 0;
         SWval = digitalRead(SW_PIN);
-    }
-
-    MyPair getData()
-    {
-        return MyPair{Xval, Yval};
     }
 };

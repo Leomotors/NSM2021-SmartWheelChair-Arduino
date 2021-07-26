@@ -16,21 +16,23 @@
  * * - Motor Driver (4 Digital PWM)
  */
 
+#define RELAY_PIN 2
+
 Ultrasonic FrontGround{A2, A3};
 Ultrasonic FrontView{A4, A5};
-Joystick J{A1, A0, 13};
-Car C{5,6,9,10};
+Joystick CtrlJoy{A1, A0, 13};
+Car MyCar{5, 6, 9, 10};
 
 void setup()
 {
+    pinMode(RELAY_PIN, OUTPUT);
+    digitalWrite(RELAY_PIN, HIGH);
     Serial.begin(9600);
     Buzzer::init();
-    pinMode(10, OUTPUT);
-    digitalWrite(10, HIGH);
     Signal::SwitchedOn();
 }
 
 void loop()
 {
-
+    MyCar.setSpeed(CtrlJoy.getData());
 }

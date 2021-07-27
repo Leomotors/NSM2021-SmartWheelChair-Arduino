@@ -2,6 +2,8 @@
 
 Arduino Code for Smart Wheel Chair (NSM 2021)
 
+[Mobile App Part](https://github.com/Leomotors/NSM2021-SmartWheelChair-MobileApp)
+
 ## ⚙️ Components used
 
 * <a href="https://th.cytron.io/p-maker-nano-simplifying-arduino-for-projects">Maker Nano</a>

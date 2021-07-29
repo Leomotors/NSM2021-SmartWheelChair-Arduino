@@ -128,6 +128,7 @@ void EmergencyMode()
                 powerOff();
             else if (Buffer == "CANCEL_EMERGENCY")
             {
+                Serial.println("OK");
                 return;
             }
         }

@@ -2,7 +2,7 @@
 
 #define INACCURACY_RANGE 10
 
-#define HOLD_TO_POWER_OFF_DURATION 2000
+#define HOLD_TO_POWER_OFF_DURATION 1500
 
 class Joystick
 {

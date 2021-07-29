@@ -23,6 +23,7 @@
  */
 
 #define RELAY_PIN 2
+#define EMERGENCY_BUTTON 4
 
 void powerOff();
 
@@ -36,6 +37,9 @@ void setup()
 {
     pinMode(RELAY_PIN, OUTPUT);
     digitalWrite(RELAY_PIN, HIGH);
+
+    pinMode(EMERGENCY_BUTTON, INPUT_PULLUP);
+
     Serial.begin(9600);
 
     Buzzer::init();
@@ -60,6 +64,18 @@ void setup()
 // * Main Driving Loop
 void loop()
 {
+    if(!digitalRead(EMERGENCY_BUTTON))
+    {
+        // * EMERGENCY
+        Serial.println("EMERGENCY");
+        MyCar.emergencyBrake(Signal::Alert);
+        while(true)
+        {
+            Signal::Alert();
+            delay(1000);
+        }
+    }
+
     MyPair JoyData = MyJoy.getData(true);
     MyJoy.PowerOffCheck();
 

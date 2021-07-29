@@ -53,17 +53,12 @@ public:
 
         while (tBuffer != '\n')
         {
-            Buffer += (char)tBuffer;
-            tBuffer = Serial.read();
+            if (Serial.available())
+            {
+                Buffer += (char)tBuffer;
+                tBuffer = Serial.read();
+            }
         }
         return Buffer;
-    }
-
-    String BluetoothCMDRead()
-    {
-        if(Serial.available())
-        {
-            return getSerialString();
-        }
     }
 };

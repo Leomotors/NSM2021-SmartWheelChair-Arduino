@@ -70,14 +70,24 @@ void loop()
         EmergencyMode();
     }
 
-    String Buffer = Bluetooth.BluetoothCMDRead();
-    if (Buffer == "POWER_OFF")
+    if (Serial.available())
     {
-        powerOff();
-    }
-    if (Buffer == "EMERGENCY")
-    {
-        EmergencyMode();
+        String Buffer = Bluetooth.getSerialString();
+
+        if (Buffer == "POWER_OFF")
+        {
+            powerOff();
+        }
+        else if (Buffer == "EMERGENCY")
+        {
+            EmergencyMode();
+        }
+        else
+        {
+            Buzzer::Play(500, 200);
+            Serial.println("UNKNOWN_COMMAND: " + Buffer);
+            Serial.flush();
+        }
     }
 
     MyPair JoyData = MyJoy.getData(true);
@@ -108,8 +118,18 @@ void EmergencyMode()
     MyCar.emergencyBrake(Signal::Alert);
     while (true)
     {
-        Buzzer::Play(2000, 1000);
-        delay(1000);
+        Buzzer::Play(2000, 800);
+        delay(1600);
         MyJoy.PowerOffCheck();
+        if (Serial.available())
+        {
+            String Buffer = Bluetooth.getSerialString();
+            if (Buffer == "POWER_OFF")
+                powerOff();
+            else if (Buffer == "CANCEL_EMERGENCY")
+            {
+                return;
+            }
+        }
     }
 }

@@ -64,16 +64,20 @@ void setup()
 // * Main Driving Loop
 void loop()
 {
-    if(!digitalRead(EMERGENCY_BUTTON))
+    if (!digitalRead(EMERGENCY_BUTTON))
     {
         // * EMERGENCY
-        Serial.println("EMERGENCY");
-        MyCar.emergencyBrake(Signal::Alert);
-        while(true)
-        {
-            Signal::Alert();
-            delay(1000);
-        }
+        EmergencyMode();
+    }
+
+    String Buffer = Bluetooth.BluetoothCMDRead();
+    if (Buffer == "POWER_OFF")
+    {
+        powerOff();
+    }
+    if (Buffer == "EMERGENCY")
+    {
+        EmergencyMode();
     }
 
     MyPair JoyData = MyJoy.getData(true);
@@ -96,4 +100,16 @@ void powerOff()
 
     while (true)
         digitalWrite(RELAY_PIN, LOW);
+}
+
+void EmergencyMode()
+{
+    Serial.println("EMERGENCY");
+    MyCar.emergencyBrake(Signal::Alert);
+    while (true)
+    {
+        Buzzer::Play(2000, 1000);
+        delay(1000);
+        MyJoy.PowerOffCheck();
+    }
 }

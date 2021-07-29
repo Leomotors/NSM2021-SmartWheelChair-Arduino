@@ -58,4 +58,12 @@ public:
         }
         return Buffer;
     }
+
+    String BluetoothCMDRead()
+    {
+        if(Serial.available())
+        {
+            return getSerialString();
+        }
+    }
 };

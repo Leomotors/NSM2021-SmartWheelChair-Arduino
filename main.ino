@@ -5,13 +5,12 @@
 #include "components/Ultrasonic.cpp"
 #include "components/Joystick.cpp"
 #include "components/Car.cpp"
+#include "components/BTSerial.cpp"
 
 #define CAR_ID "100000"
 #define CAR_PASSWORD "123456"
 
 #include "utils/Pair.hpp"
-
-#include <SoftwareSerial.h>
 
 /**
  * * COMPONENTS ARE
@@ -27,53 +26,31 @@
 
 void powerOff();
 
-SoftwareSerial BTSerial(0, 1);
-
 Ultrasonic FrontGround{A2, A3};
 Ultrasonic FrontView{A4, A5};
 Joystick MyJoy{A1, A0, 13, powerOff};
 Car MyCar{5, 6, 9, 10};
+BluetoothSerial Bluetooth{CAR_ID, CAR_PASSWORD};
 
 void setup()
 {
     pinMode(RELAY_PIN, OUTPUT);
     digitalWrite(RELAY_PIN, HIGH);
     Serial.begin(9600);
-    BTSerial.begin(9600);
 
     Buzzer::init();
 
     // * Switch on Beep
     Signal::SwitchedOn();
 
-    // TODO Implement authentication process
-    delay(1200);
+    Bluetooth.setTracebackFunction(Signal::Alert);
 
     bool authenticated = false;
 
-    while (!authenticated)
+    while (!Bluetooth.AuthenticationLoop())
     {
-        if (BTSerial.available())
-        {
-            String Buffer = "";
-            int tBuffer = BTSerial.read();
-
-            while (tBuffer != '\n')
-            {
-                Buffer += (char)tBuffer;
-                tBuffer = BTSerial.read();
-            }
-
-            if (Buffer == CAR_PASSWORD)
-            {
-                authenticated = true;
-                break;
-            }
-            BTSerial.println(Buffer);
-            BTSerial.flush();
-            Signal::Alert();
-        }
         MyJoy.PowerOffCheck();
+        delay(100);
     }
 
     // * When Authentication success, play welcome music and begin the system

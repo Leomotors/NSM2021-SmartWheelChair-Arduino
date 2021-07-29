@@ -2,7 +2,7 @@
 
 #define INACCURACY_RANGE 10
 
-#define HOLD_TO_POWER_OFF_DURATION 4000
+#define HOLD_TO_POWER_OFF_DURATION 2000
 
 class Joystick
 {
@@ -10,7 +10,7 @@ class Joystick
     int Xval, Yval;
     MyPair dataPair{0, 0};
     void (*powerOffFunc)();
-    int powerOffTimer{0};
+    uint32_t powerOffStart{0};
 
 public:
     Joystick(uint8_t VRx, uint8_t VRy, uint8_t SW, void powerOffFunc())
@@ -25,13 +25,16 @@ public:
     {
         if (!digitalRead(SW_PIN))
         {
-            powerOffTimer++;
-            if (powerOffTimer > HOLD_TO_POWER_OFF_DURATION)
+            if (powerOffStart == 0)
+            {
+                powerOffStart = millis();
+            }
+            if (millis() - powerOffStart >= HOLD_TO_POWER_OFF_DURATION)
                 powerOffFunc();
         }
         else
         {
-            powerOffTimer = 0;
+            powerOffStart = 0;
         }
     }
 

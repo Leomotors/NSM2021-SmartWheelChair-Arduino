@@ -1,6 +1,8 @@
 # NSM2021-SmartWheelChair-Arduino
 
-Arduino Code for Smart Wheel Chair (NSM 2021)
+Arduino Code for Smart Wheel Chair Project (In Part of NSM 2021 Qualification Round)
+
+Project Status: ***Didn't Advanced to Next Round***
 
 [Mobile App Part](https://github.com/Leomotors/NSM2021-SmartWheelChair-MobileApp)
 
